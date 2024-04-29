@@ -13,10 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // GET /tasks: Retrieve all tasks.
 app.get('/tasks', (req, res) => {
     try {
-        res.status(200).json({
-            Status: "successful",
-            tasks: task.tasks
-        })
+        res.status(200).json(task.tasks)
     } catch (err) {
         res.status(400).json({
             Status: "Failed",
@@ -33,6 +30,7 @@ app.get('/tasks/:id', (req, res) => {
 
         let result = taskList.find((task) => task.id === id);
 
+
         if (!result) {
             return res.status(404).json({
                 status: "Failed",
@@ -40,10 +38,9 @@ app.get('/tasks/:id', (req, res) => {
             })
         }
 
-        res.status(200).json({
-            status: "successful",
-            tasks: result
-        })
+        res.status(200).json(result)
+
+
     } catch (err) {
         res.status(400).json({
             Status: "Failed",
@@ -69,10 +66,7 @@ app.post('/tasks', (req, res) => {
                         message: err.message
                     })
                 } else {
-                    res.status(200).json({
-                        status: "successful",
-                        postData
-                    })
+                    res.status(200).json(postData)
                 }
             })
         } else {
@@ -122,7 +116,7 @@ app.put('/tasks/:id', (req, res) => {
                 } else {
                     res.status(200).json({
                         status: "successful",
-                        putData
+                        Data: putData.tasks
                     })
                 }
             })
